@@ -6,10 +6,12 @@ Created on Fri Apr  5 23:22:25 2019
 @author: ugoslight
 """
 from PIL import Image
+from PIL import ImageFilter
 
 picture = Image.open("nicholascage.jpg")
 size_of_image = picture.size
 
+picture = picture.filter(ImageFilter.SHARPEN)
 pix = picture.load()
 
 """Left eyebrow"""
