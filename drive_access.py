@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Created on Sat Apr  6 8:02:12 2019
 
+@author: Akwarandu Ugo Nwachuku
+Description: This module is responsible for gaining access to the google
+             drive API and downloading the shared image. 
+"""
 from __future__ import print_function
 import httplib2
 import os, io
+import auth
+
+from my_image_processing import apply_makeup
 
 from apiclient import discovery
 from oauth2client import client
@@ -17,7 +26,6 @@ try:
 except ImportError:
     flags = None
     
-import auth
 SCOPES = 'https://www.googleapis.com/auth/drive'
 CLIENT_SECRET_FILE = 'credentials.json'
 APPLICATION_NAME = 'Drive API Python Quickstart'
@@ -34,10 +42,12 @@ def download_file(file_id, file_path):
     done = False
     while done is False: 
         status, done = downloader.next_chunk()
-        print("Download %d%%." % int(status.progress() * 100))
+        print("This much of Nicholas Cage has been downloaded: %d%%." % int(status.progress() * 100))
         
     with io.open(file_path, 'wb') as f:
         fh.seek(0)
         f.write(fh.read())
-#https://drive.google.com/file/d/1ALXmFWrnaV7vhCDMPW2N4sPudTsqpjr-/view?usp=sharing
+
 download_file('1ALXmFWrnaV7vhCDMPW2N4sPudTsqpjr-', 'nicholascage.jpg')
+
+apply_makeup('nicholascage.jpg')

@@ -1,3 +1,12 @@
+"""
+Created on Sat Apr  6  9:13:45 2019
+
+@author: Akwarandu Ugo Nwachuku
+Description: This module is responsible for granting access to the google drive 
+             API.
+             
+Acknowledgement: Sam Lopez for auth.py
+"""
 from __future__ import print_function
 import httplib2
 import os
@@ -20,12 +29,7 @@ class auth:
         self.CLIENT_SECRET_FILE = CLIENT_SECRET_FILE
         self.APPLICATION_NAME = APPLICATION_NAME
     def getCredentials(self):
-        """Gets valid user credentials from storage.
-        If nothing has been stored, or if the stored credentials are invalid,
-        the OAuth2 flow is completed to obtain the new credentials.
-        Returns:
-            Credentials, the obtained credential.
-        """
+        """Obtains true user credentials from storage."""
         cwd_dir = os.getcwd()
         credential_dir = os.path.join(cwd_dir, '.credentials')
         if not os.path.exists(credential_dir):
@@ -40,7 +44,7 @@ class auth:
             flow.user_agent = self.APPLICATION_NAME
             if flags:
                 credentials = tools.run_flow(flow, store, flags)
-            else: # Needed only for compatibility with Python 2.6
+            else:
                 credentials = tools.run(flow, store)
             print('Storing credentials to ' + credential_path)
         return credentials
